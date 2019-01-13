@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include oi_pipeline *.css
+recursive-include oi_pipeline *.csv
+recursive-include oi_pipeline *.html
+recursive-include oi_pipeline *.ico
+recursive-include oi_pipeline *.js
+recursive-include oi_pipeline *.json
+recursive-include oi_pipeline *.md
+recursive-include oi_pipeline *.png
+recursive-include oi_pipeline *.py
+recursive-include oi_pipeline *.svg
+recursive-include oi_pipeline *.txt
+recursive-exclude oi_pipeline *.pyc
