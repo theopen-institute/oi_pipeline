@@ -1,0 +1,51 @@
+<!-- jinja -->
+
+<style>
+    td:hover {background-color: #FFFFE7;}
+    a:hover {text-decoration: none;}
+</style>
+
+{% for program, items in categorized_todos.items() %}
+<table class="table table-striped table-bordered" style="max-width: 100%;">
+    <thead>
+        <tr>
+            <th style="width:100%">
+                {{ program }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in items %}
+        <tr>
+
+            <td>
+                <div>
+                    <a data-href="desk#Form/{{ t.reference_type }}/{{ t.reference_name }}" class="showModal">
+                        <span>{{ t.first_name }} {{ t.last_name }}</span>
+                    </a>
+                    <span style="float: right;">{{ t.action_step }}</span></div>
+                <div>
+                    <span style="padding-right: 5px;">({{ t.creation }})</span>
+                    <span>Ph. {{ t.student_mobile_number }}</span>
+                </div>
+                <div>
+                    <a><span onclick="console.log("open sayso!")">{{t.comments|length}} comment(s)</span></a>
+                </div>
+                <ul style="width: 95%; padding: 5px; margin-left: 20px; display: none;">
+                    <input>
+                    {% for c in t.comments %}
+                    <li style="border-top: 1px dashed grey; border-bottom: 1px dashed grey; padding: 5px; list-style-type: none; margin-top: -1px">
+                        <div style="font-style: italic"> {{ c.user}}</div>
+                        <div> {{ c.content}}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+
+
+
