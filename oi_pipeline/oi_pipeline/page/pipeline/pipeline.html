@@ -2,7 +2,6 @@
 
 <style>
     td:hover {background-color: #FFFFE7;}
-    a:hover {text-decoration: none;}
 </style>
 
 {% for program, items in categorized_todos.items() %}
@@ -20,16 +19,14 @@
 
             <td>
                 <div>
-                    <a data-href="desk#Form/{{ t.reference_type }}/{{ t.reference_name }}" class="showModal">
+                    <a href="desk#Form/{{ t.reference_type }}/{{ t.reference_name }}" class="showModal">
                         <span>{{ t.first_name }} {{ t.last_name }}</span>
                     </a>
                     <span style="float: right;">{{ t.action_step }}</span></div>
                 <div>
                     <span style="padding-right: 5px;">({{ t.creation }})</span>
                     <span>Ph. {{ t.student_mobile_number }}</span>
-                </div>
-                <div>
-                    <a><span onclick="console.log("open sayso!")">{{t.comments|length}} comment(s)</span></a>
+                    <span style="float: right;" onclick="console.log("open sayso!")"><a>{{t.comments|length}} comment(s)</a></span>
                 </div>
                 <ul style="width: 95%; padding: 5px; margin-left: 20px; display: none;">
                     <input>

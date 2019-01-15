@@ -36,9 +36,9 @@ def get_context(context):
                 todo["student_email_address"] = application.student_email_address
             todo["comments"] = frappe.get_list('Communication', fields=['content', 'user'], filters={'reference_name': application.name})
             for comment in todo["comments"]:
-                print(comment.content)
-                print comment.content.replace("'", "\\\'")
-
+                #print(comment.content)
+                #print comment.content.replace("'", "\\\'")
+		comment.content = None
                 comment.content = json.dumps(comment.content)
                 comment.content = comment.content.replace("'", "\\\'")
 
