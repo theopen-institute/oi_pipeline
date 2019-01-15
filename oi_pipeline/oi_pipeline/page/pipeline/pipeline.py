@@ -1,5 +1,6 @@
 import os
 import frappe
+import json
 from frappe import _
 from frappe.utils import get_site_path, cint, get_url
 from frappe.utils.data import convert_utc_to_user_timezone
@@ -34,6 +35,12 @@ def get_context(context):
             if hasattr(application, "student_email_address"):
                 todo["student_email_address"] = application.student_email_address
             todo["comments"] = frappe.get_list('Communication', fields=['content', 'user'], filters={'reference_name': application.name})
+            for comment in todo["comments"]:
+                print(comment.content)
+                print comment.content.replace("'", "\\\'")
+
+                comment.content = json.dumps(comment.content)
+                comment.content = comment.content.replace("'", "\\\'")
 
         # assemble into a categorized list by program
         if "program" in todo:
@@ -42,11 +49,6 @@ def get_context(context):
                 categorized_todos[program_name] = []
             categorized_todos[program_name].append(todo)
 
-
-
-
-    #context.todos = todos
-    #print(todos)
     print(categorized_todos)
     return {"categorized_todos": categorized_todos} 
     
