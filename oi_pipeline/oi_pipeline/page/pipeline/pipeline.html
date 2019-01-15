@@ -20,23 +20,39 @@
             <td>
                 <div>
                     <a href="desk#Form/{{ t.reference_type }}/{{ t.reference_name }}" class="showModal">
-                        <span>{{ t.first_name }} {{ t.last_name }}</span>
+                        <span>{{ t.first_name }} {{ t.last_name }} {{ "bob" }}</span>
                     </a>
                     <span style="float: right;">{{ t.action_step }}</span></div>
                 <div>
                     <span style="padding-right: 5px;">({{ t.creation }})</span>
                     <span>Ph. {{ t.student_mobile_number }}</span>
-                    <span style="float: right;" onclick="console.log("open sayso!")"><a>{{t.comments|length}} comment(s)</a></span>
+                    <span style="float: right;">
+                        <a onclick="$(this).parent().siblings(\\\'ul\\\').toggle(300)"">{{t.comments|length}} comment(s)</a>
+                        <div style="display: none">blab</div>
+                        <!-- <a onclick=$(this).parent().sibling("ul").toggle(300)>{{t.comments|length}} comment(s)</a> -->
+                    </span>
+                    <ul class="bob" style="width: 95%; padding: 5px; margin-left: 20px; display: none;">
+                        <input style="margin: 10px 0 10px 0; padding: 5px; width: 80%; " />
+                        <button style="padding: 5px;"
+                            onclick="frappe.call({
+                                method:\\\'oi_pipeline.oi_pipeline.page.pipeline.pipeline.add_new_comment\\\',
+                                args:{
+                                    document_type: \\\'{{ t.reference_type }}\\\',
+                                    document_name: \\\'{{ t.reference_name }}\\\'
+                                },
+                                callback: function(r){
+                                    console.log(r)
+                                }
+                            })">Add comment</button>
+                        {% for c in t.comments %}
+                        <li style="border-top: 1px dashed grey; border-bottom: 1px dashed grey; padding: 5px; list-style-type: none; margin-top: -1px">
+                            <div style="font-style: italic"> {{ c.user}}</div>
+                            <div> {{ c.content}}</div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <ul style="width: 95%; padding: 5px; margin-left: 20px; display: none;">
-                    <input>
-                    {% for c in t.comments %}
-                    <li style="border-top: 1px dashed grey; border-bottom: 1px dashed grey; padding: 5px; list-style-type: none; margin-top: -1px">
-                        <div style="font-style: italic"> {{ c.user}}</div>
-                        <div> {{ c.content}}</div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                
             </td>
         </tr>
         {% endfor %}

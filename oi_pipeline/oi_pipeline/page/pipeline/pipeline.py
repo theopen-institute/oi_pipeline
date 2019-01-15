@@ -38,7 +38,6 @@ def get_context(context):
             for comment in todo["comments"]:
                 #print(comment.content)
                 #print comment.content.replace("'", "\\\'")
-		comment.content = None
                 comment.content = json.dumps(comment.content)
                 comment.content = comment.content.replace("'", "\\\'")
 
@@ -51,26 +50,11 @@ def get_context(context):
 
     print(categorized_todos)
     return {"categorized_todos": categorized_todos} 
-    
-    # def get_time(path):
-    #   dt = os.path.getmtime(path)
-    #   return convert_utc_to_user_timezone(datetime.datetime.utcfromtimestamp(dt)).strftime('%Y-%m-%d %H:%M')
 
-    # def get_size(path):
-    #   size = os.path.getsize(path)
-    #   if size > 1048576:
-    #       return "{0:.1f}M".format(float(size) / 1048576)
-    #   else:
-    #       return "{0:.1f}K".format(float(size) / 1024)
-
-    # path = get_site_path('private', 'backups')
-    # files = [x for x in os.listdir(path) if os.path.isfile(os.path.join(path, x))]
-    # backup_limit = get_scheduled_backup_limit()
-
-    # if len(files) > backup_limit:
-    #   cleanup_old_backups(path, files, backup_limit)
-
-    # files = [('/backups/' + _file,
-    #   get_time(os.path.join(path, _file)),
-    #   get_size(os.path.join(path, _file))) for _file in files if _file.endswith('sql.gz')]
-    # files.sort(key=lambda x: x[1], reverse=True)
+ 
+@frappe.whitelist()
+def add_new_comment(document_type, document_name):
+    d = frappe.get_doc(document_type, document_name)
+    print(d)
+    z = d.add_comment("comment", text="new comment submitted here")
+    return(z)
